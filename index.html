@@ -20,8 +20,26 @@
   <body>
     <div id="demo-container">
       <hookban-container>
-        <hookban-background />
+        <hookban-background width="120" height="120" />
       </hookban-container>
     </div>
+
+    <script>
+      const observer = new ResizeObserver((mutations) => {
+        const { height: newHeight, width: newWidth } =
+          mutations[0].contentRect
+
+        const hookbanBackground = document.querySelector(
+          "hookban-background"
+        )
+
+        hookbanBackground.setAttribute("height", newHeight)
+        hookbanBackground.setAttribute("width", newWidth)
+      })
+
+      const div = document.querySelector("#demo-container")
+
+      observer.observe(div)
+    </script>
   </body>
 </html>

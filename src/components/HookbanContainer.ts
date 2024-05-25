@@ -1,10 +1,10 @@
-import { TaggedHTMLElement } from "./utils/TaggedHTMLElement"
+import { TaggedHTMLElement } from "./utils/exports"
 
 export class HookbanContainer
   extends HTMLElement
   implements TaggedHTMLElement
 {
-  static readonly tag = "hook-ban"
+  static readonly tag = "hookban-container"
 
   constructor() {
     super()
