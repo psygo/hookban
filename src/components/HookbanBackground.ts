@@ -27,7 +27,8 @@ export class HookbanBackground
     this.createImageBitmap()
   }
 
-  async createImageBitmap() {
+  // Necessary due to [this bug](https://stackoverflow.com/a/71201859/4756173).
+  createImageBitmap() {
     let bmp: ImageBitmap
 
     document.onvisibilitychange = async () => {
