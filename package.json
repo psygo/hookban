@@ -13,7 +13,8 @@
         "go",
         "goban",
         "baduk",
-        "weiqi"
+        "weiqi",
+        "web-components"
     ],
     "private": true,
     "type": "module",

@@ -4,8 +4,22 @@
     <title>Hookban</title>
 
     <script type="module" src="/src/main.ts"></script>
+
+    <style>
+      #demo-container {
+        resize: both;
+        overflow: auto;
+
+        padding: 10px;
+        border: 1px solid black;
+      }
+    </style>
   </head>
   <body>
-    <hookban-container/>
+    <div id="demo-container">
+      <hookban-container>
+        <hookban-background />
+      </hookban-container>
+    </div>
   </body>
 </html>
