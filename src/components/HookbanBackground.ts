@@ -8,19 +8,22 @@ export class HookbanBackground
 
   static observedAttributes = ["width", "height"]
 
-  private canvas = document.createElement("canvas")
+  private canvas: HTMLCanvasElement | undefined
 
   constructor(public width = 100, public height = 100) {
     super()
   }
 
   connectedCallback() {
+    this.canvas = document.createElement("canvas")
     const shadowRoot = this.attachShadow({ mode: "open" })
     shadowRoot.appendChild(this.canvas)
     this.drawBackground()
   }
 
   drawBackground() {
+    if (!this.canvas) return
+
     console.log(
       "parent",
       this.parentElement?.clientHeight,
@@ -53,12 +56,12 @@ export class HookbanBackground
     let bmp: ImageBitmap
 
     document.onvisibilitychange = async () => {
-      const canvas = document.querySelector("canvas")!
+      if (!this.canvas) return
 
       if (document.visibilityState === "hidden") {
-        bmp = await createImageBitmap(canvas)
+        bmp = await createImageBitmap(this.canvas)
       } else {
-        const ctx = canvas.getContext("2d")
+        const ctx = this.canvas.getContext("2d")
         if (!ctx) return
 
         ctx.globalCompositeOperation = "copy"
