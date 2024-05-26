@@ -6,7 +6,7 @@ export class HookbanContainer
 {
   static readonly tag = "hookban-container"
 
-  private static templateContent = /* html */ `
+  private static readonly templateContent = /* html */ `
     <slot></slot>
   `
 

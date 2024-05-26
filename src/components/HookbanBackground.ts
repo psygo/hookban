@@ -6,7 +6,7 @@ export class HookbanBackground
 {
   static readonly tag = "hookban-background"
 
-  static observedAttributes = ["width", "height"]
+  static readonly observedAttributes = ["width", "height"]
 
   private canvas: HTMLCanvasElement | undefined
 
@@ -25,7 +25,7 @@ export class HookbanBackground
     if (!this.canvas) return
 
     console.log(
-      "parent",
+      "parent dims",
       this.parentElement?.clientHeight,
       this.parentElement?.clientWidth
     )
@@ -33,9 +33,6 @@ export class HookbanBackground
     // this.canvas.width = this.parentElement!.clientWidth
     this.canvas.width = this.width
     this.canvas.height = this.height
-
-    // this.canvas.style.resize = "both"
-    // this.canvas.style.overflow = "auto"
 
     const ctx = this.canvas.getContext("2d")
     if (!ctx) return
