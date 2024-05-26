@@ -16,8 +16,11 @@
         display: flex;
         gap: 10px;
       }
-      
+
       fieldset {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         padding-right: 20px;
         padding-left: 20px;
       }
@@ -72,13 +75,20 @@
 
     <form id="goban-customization">
       <fieldset>
-        <legend>Goban Customization</legend>
+        <legend>Goban Background Customization</legend>
 
         <div class="form-field">
           <label for="background-color"
             >Background Color</label
           >
           <input id="background-color" type="color" />
+        </div>
+
+        <div class="form-field">
+          <label for="background-img"
+            >Background Image</label
+          >
+          <input id="background-img" type="file" />
         </div>
       </fieldset>
     </form>
@@ -100,6 +110,30 @@
           )
         }
       )
+    </script>
+
+    <script id="background-img-change">
+      const backgroundImgInput = document.querySelector(
+        "#background-img"
+      )
+
+      backgroundImgInput.addEventListener("input", (e) => {
+        const hookbanBackground = document.querySelector(
+          "hookban-background"
+        )
+
+        const imgFile = e.target.files[0]
+        const reader = new FileReader()
+
+        reader.onload = (e) => {
+          hookbanBackground.setAttribute(
+            "img",
+            e.target.result
+          )
+        }
+
+        reader.readAsDataURL(imgFile)
+      })
     </script>
   </body>
 </html>

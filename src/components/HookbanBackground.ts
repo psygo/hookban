@@ -10,6 +10,7 @@ export class HookbanBackground
     "width",
     "height",
     "color",
+    "img",
   ]
 
   private canvas: HTMLCanvasElement | undefined
@@ -17,7 +18,8 @@ export class HookbanBackground
   constructor(
     public width = 100,
     public height = 100,
-    public color = "black"
+    public color = "black",
+    public img = ""
   ) {
     super()
   }
@@ -38,13 +40,19 @@ export class HookbanBackground
     const ctx = this.canvas.getContext("2d")
     if (!ctx) return
 
-    ctx.fillStyle = this.color
-    ctx.fillRect(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
-    )
+    if (this.img && this.img !== "") {
+      const imgEl = document.createElement("img")
+      imgEl.src = this.img
+      ctx.drawImage(imgEl, 0, 0)
+    } else {
+      ctx.fillStyle = this.color
+      ctx.fillRect(
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+      )
+    }
 
     this.createImageBitmap()
   }
@@ -84,11 +92,14 @@ export class HookbanBackground
       case "color":
         this.color = newValue
         break
+      case "img":
+        this.img = newValue
+        break
       default:
     }
 
     this.dispatchEvent(
-      new CustomEvent("hookban-background-change", {
+      new CustomEvent("hookban-background-changed", {
         bubbles: true,
         detail: {
           attributeName: name,
