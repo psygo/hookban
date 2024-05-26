@@ -42,8 +42,9 @@ export class HookbanBackground
 
     if (this.img && this.img !== "") {
       const imgEl = document.createElement("img")
+      imgEl.onload = () =>
+        ctx.drawImage(imgEl, 0, 0, this.width, this.height)
       imgEl.src = this.img
-      ctx.drawImage(imgEl, 0, 0)
     } else {
       ctx.fillStyle = this.color
       ctx.fillRect(
