@@ -7,17 +7,37 @@
 
     <style>
       body {
+        display: flex;
         padding: 10px;
+        gap: 10px;
+      }
+
+      form {
+        display: flex;
+        gap: 10px;
+      }
+
+      input {
+        width: 100%;
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
       }
 
       #demo-container {
         resize: both;
         overflow: auto;
-
-        height: fit-content;
-        width: fit-content;
-        max-height: 300px;
-        max-width: 300px;
+        /* For some reason, `fit-content` and
+           `max-height`/`max-width` make things grow
+           infinitely. For more info, check [this question](https://stackoverflow.com/q/78535322/4756173).
+        */
+        /* height: fit-content;
+        width: fit-content; */
+        height: 300px;
+        width: 300px;
         padding: 10px;
         border: 1px solid black;
       }
@@ -30,21 +50,41 @@
       </hookban-container>
     </div>
 
-    <script>
+    <script id="canvas-resize">
       const observer = new ResizeObserver((mutations) => {
         const { height: newHeight, width: newWidth } =
           mutations[0].contentRect
-
         const hookbanBackground = document.querySelector(
           "hookban-background"
         )
-
         hookbanBackground.setAttribute("height", newHeight)
         hookbanBackground.setAttribute("width", newWidth)
       })
 
       const hookbanContainer = document.querySelector("div")
       observer.observe(hookbanContainer)
+    </script>
+
+    <form>
+      <div class="form-field">
+        <label for="background-color"
+          >Background Color</label
+        >
+        <input id="background-color" type="color" />
+      </div>
+    </form>
+
+    <script id="form-submission">
+      const backgroundColorInput = document.querySelector(
+        "#background-color"
+      )
+
+      backgroundColorInput.addEventListener(
+        "input",
+        (e) => {
+          console.log(e)
+        }
+      )
     </script>
   </body>
 </html>

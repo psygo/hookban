@@ -24,13 +24,6 @@ export class HookbanBackground
   drawBackground() {
     if (!this.canvas) return
 
-    console.log(
-      "parent dims",
-      this.parentElement?.clientHeight,
-      this.parentElement?.clientWidth
-    )
-    // this.canvas.height = this.parentElement!.clientHeight
-    // this.canvas.width = this.parentElement!.clientWidth
     this.canvas.width = this.width
     this.canvas.height = this.height
 
