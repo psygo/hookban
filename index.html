@@ -90,6 +90,13 @@
           >
           <input id="background-img" type="file" />
         </div>
+
+        <div class="form-field">
+          <label for="background-img-url"
+            >Background Image URL</label
+          >
+          <input id="background-img-url" type="url" />
+        </div>
       </fieldset>
     </form>
 
@@ -134,6 +141,25 @@
 
         reader.readAsDataURL(imgFile)
       })
+    </script>
+
+    <script id="background-img-url-change">
+      const backgroundImgLinkInput = document.querySelector(
+        "#background-img-url"
+      )
+
+      backgroundImgLinkInput.addEventListener(
+        "input",
+        (e) => {
+          const hookbanBackground = document.querySelector(
+            "hookban-background"
+          )
+          hookbanBackground.setAttribute(
+            "img",
+            e.target.value
+          )
+        }
+      )
     </script>
   </body>
 </html>

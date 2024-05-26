@@ -18,7 +18,7 @@ export class HookbanBackground
   constructor(
     public width = 100,
     public height = 100,
-    public color = "black",
+    public color = "#cfb844",
     public img = ""
   ) {
     super()
@@ -41,18 +41,13 @@ export class HookbanBackground
     if (!ctx) return
 
     if (this.img && this.img !== "") {
-      const imgEl = document.createElement("img")
+      const imgEl = new Image()
       imgEl.onload = () =>
         ctx.drawImage(imgEl, 0, 0, this.width, this.height)
       imgEl.src = this.img
     } else {
       ctx.fillStyle = this.color
-      ctx.fillRect(
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height
-      )
+      ctx.fillRect(0, 0, this.width, this.height)
     }
 
     this.createImageBitmap()
