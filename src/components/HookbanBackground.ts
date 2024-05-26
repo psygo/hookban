@@ -8,28 +8,28 @@ export class HookbanBackground
 
   static observedAttributes = ["width", "height"]
 
-  public height: number = 100
-  public width: number = 100
-
   private canvas = document.createElement("canvas")
 
-  constructor(height: number = 100, width: number = 100) {
+  constructor(public width = 100, public height = 100) {
     super()
-
-    this.height = height
-    this.width = width
-  }
-
-  connectedCallback() {
-    // TODO: missing default parameters
+    const shadowRoot = this.attachShadow({ mode: "open" })
+    shadowRoot.appendChild(this.canvas)
     this.drawBackground()
-    this.appendChild(this.canvas)
-    this.createImageBitmap()
   }
 
   drawBackground() {
-    this.canvas.height = this.height
+    console.log(
+      "parent",
+      this.parentElement?.clientHeight,
+      this.parentElement?.clientWidth
+    )
+    // this.canvas.height = this.parentElement!.clientHeight
+    // this.canvas.width = this.parentElement!.clientWidth
     this.canvas.width = this.width
+    this.canvas.height = this.height
+
+    // this.canvas.style.resize = "both"
+    // this.canvas.style.overflow = "auto"
 
     const ctx = this.canvas.getContext("2d")
     if (!ctx) return
@@ -41,10 +41,12 @@ export class HookbanBackground
       this.canvas.width,
       this.canvas.height
     )
+
+    this.createImageBitmap()
   }
 
   // Necessary due to [this bug](https://stackoverflow.com/a/71201859/4756173).
-  createImageBitmap() {
+  private createImageBitmap() {
     let bmp: ImageBitmap
 
     document.onvisibilitychange = async () => {
@@ -65,12 +67,9 @@ export class HookbanBackground
 
   attributeChangedCallback(
     name: string,
-    oldValue: string,
+    _oldValue: string,
     newValue: string
   ) {
-    console.log(
-      `Attribute ${name} changed from ${oldValue} to ${newValue}`
-    )
     switch (name) {
       case "width":
         this.width = parseFloat(newValue)
@@ -80,5 +79,7 @@ export class HookbanBackground
         break
       default:
     }
+
+    this.drawBackground()
   }
 }
