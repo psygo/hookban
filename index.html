@@ -16,6 +16,11 @@
         display: flex;
         gap: 10px;
       }
+      
+      fieldset {
+        padding-right: 20px;
+        padding-left: 20px;
+      }
 
       input {
         width: 100%;
@@ -65,16 +70,20 @@
       observer.observe(hookbanContainer)
     </script>
 
-    <form>
-      <div class="form-field">
-        <label for="background-color"
-          >Background Color</label
-        >
-        <input id="background-color" type="color" />
-      </div>
+    <form id="goban-customization">
+      <fieldset>
+        <legend>Goban Customization</legend>
+
+        <div class="form-field">
+          <label for="background-color"
+            >Background Color</label
+          >
+          <input id="background-color" type="color" />
+        </div>
+      </fieldset>
     </form>
 
-    <script id="form-submission">
+    <script id="background-color-change">
       const backgroundColorInput = document.querySelector(
         "#background-color"
       )
@@ -82,7 +91,13 @@
       backgroundColorInput.addEventListener(
         "input",
         (e) => {
-          console.log(e)
+          const hookbanBackground = document.querySelector(
+            "hookban-background"
+          )
+          hookbanBackground.setAttribute(
+            "color",
+            e.target.value
+          )
         }
       )
     </script>

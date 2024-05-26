@@ -6,11 +6,19 @@ export class HookbanBackground
 {
   static readonly tag = "hookban-background"
 
-  static readonly observedAttributes = ["width", "height"]
+  static readonly observedAttributes = [
+    "width",
+    "height",
+    "color",
+  ]
 
   private canvas: HTMLCanvasElement | undefined
 
-  constructor(public width = 100, public height = 100) {
+  constructor(
+    public width = 100,
+    public height = 100,
+    public color = "black"
+  ) {
     super()
   }
 
@@ -30,7 +38,7 @@ export class HookbanBackground
     const ctx = this.canvas.getContext("2d")
     if (!ctx) return
 
-    ctx.fillStyle = "blue"
+    ctx.fillStyle = this.color
     ctx.fillRect(
       0,
       0,
@@ -63,7 +71,7 @@ export class HookbanBackground
 
   attributeChangedCallback(
     name: string,
-    _oldValue: string,
+    oldValue: string,
     newValue: string
   ) {
     switch (name) {
@@ -73,8 +81,22 @@ export class HookbanBackground
       case "height":
         this.height = parseFloat(newValue)
         break
+      case "color":
+        this.color = newValue
+        break
       default:
     }
+
+    this.dispatchEvent(
+      new CustomEvent("hookban-background-change", {
+        bubbles: true,
+        detail: {
+          attributeName: name,
+          newValue,
+          oldValue,
+        },
+      })
+    )
 
     this.drawBackground()
   }
