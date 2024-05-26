@@ -12,6 +12,9 @@ export class HookbanBackground
 
   constructor(public width = 100, public height = 100) {
     super()
+  }
+
+  connectedCallback() {
     const shadowRoot = this.attachShadow({ mode: "open" })
     shadowRoot.appendChild(this.canvas)
     this.drawBackground()

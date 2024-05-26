@@ -10,9 +10,7 @@ export class HookbanContainer
     <slot></slot>
   `
 
-  constructor() {
-    super()
-
+  connectedCallback() {
     const template = document.createElement("template")
     template.innerHTML = HookbanContainer.templateContent
     const shadowRoot = this.attachShadow({ mode: "open" })
