@@ -55,7 +55,8 @@
   <body>
     <div id="demo-container">
       <hookban-container>
-        <hookban-background />
+        <hookban-grid></hookban-grid>
+        <hookban-background></hookban-background>
       </hookban-container>
     </div>
 
@@ -63,11 +64,17 @@
       const observer = new ResizeObserver((mutations) => {
         const { height: newHeight, width: newWidth } =
           mutations[0].contentRect
+
         const hookbanBackground = document.querySelector(
           "hookban-background"
         )
+        const hookbanGrid =
+          document.querySelector("hookban-grid")
+
         hookbanBackground.setAttribute("height", newHeight)
         hookbanBackground.setAttribute("width", newWidth)
+        hookbanGrid.setAttribute("height", newHeight)
+        hookbanGrid.setAttribute("width", newWidth)
       })
 
       const hookbanContainer = document.querySelector("div")

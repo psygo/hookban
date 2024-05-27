@@ -1,4 +1,7 @@
-import { TaggedHTMLElement } from "./utils/exports"
+import {
+  TaggedHTMLElement,
+  setupCanvasScale,
+} from "./utils/exports"
 
 export class HookbanBackground
   extends HTMLElement
@@ -32,17 +35,14 @@ export class HookbanBackground
     if (this.img && this.img !== "")
       this.setAttribute("img", this.img)
 
-    this.canvas = document.createElement("canvas")
     const shadowRoot = this.attachShadow({ mode: "open" })
     shadowRoot.appendChild(this.canvas)
+
     this.drawBackground()
   }
 
   drawBackground() {
-    if (!this.canvas) return
-
-    this.canvas.width = this.width
-    this.canvas.height = this.height
+    setupCanvasScale(this.canvas, this.width, this.height)
 
     const ctx = this.canvas.getContext("2d")
     if (!ctx) return

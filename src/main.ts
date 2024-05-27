@@ -1,7 +1,7 @@
 import {
   HookbanBackground,
   HookbanContainer,
-  HookbanGid,
+  HookbanGrid,
 } from "./components/exports"
 
 customElements.define(
@@ -12,4 +12,4 @@ customElements.define(
   HookbanBackground.tag,
   HookbanBackground
 )
-customElements.define(HookbanGid.tag, HookbanGid)
+customElements.define(HookbanGrid.tag, HookbanGrid)
