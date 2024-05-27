@@ -56,28 +56,6 @@ export class HookbanBackground
       ctx.fillStyle = this.color
       ctx.fillRect(0, 0, this.width, this.height)
     }
-
-    this.createImageBitmap()
-  }
-
-  // Necessary due to [this bug](https://stackoverflow.com/a/71201859/4756173).
-  private createImageBitmap() {
-    let bmp: ImageBitmap
-
-    document.onvisibilitychange = async () => {
-      if (!this.canvas) return
-
-      if (document.visibilityState === "hidden") {
-        bmp = await createImageBitmap(this.canvas)
-      } else {
-        const ctx = this.canvas.getContext("2d")
-        if (!ctx) return
-
-        ctx.globalCompositeOperation = "copy"
-        ctx.drawImage(bmp, 0, 0)
-        ctx.globalCompositeOperation = "source-over"
-      }
-    }
   }
 
   attributeChangedCallback(
