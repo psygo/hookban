@@ -13,7 +13,7 @@ export class HookbanBackground
     "img",
   ]
 
-  private canvas: HTMLCanvasElement | undefined
+  private canvas = document.createElement("canvas")
 
   constructor(
     public width = 100,
@@ -25,6 +25,13 @@ export class HookbanBackground
   }
 
   connectedCallback() {
+    this.setAttribute("width", this.width.toString())
+    this.setAttribute("height", this.height.toString())
+    if (this.color && this.color !== "")
+      this.setAttribute("color", this.color)
+    if (this.img && this.img !== "")
+      this.setAttribute("img", this.img)
+
     this.canvas = document.createElement("canvas")
     const shadowRoot = this.attachShadow({ mode: "open" })
     shadowRoot.appendChild(this.canvas)
@@ -97,6 +104,7 @@ export class HookbanBackground
     this.dispatchEvent(
       new CustomEvent("hookban-background-changed", {
         bubbles: true,
+        composed: true,
         detail: {
           attributeName: name,
           newValue,
