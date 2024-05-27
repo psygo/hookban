@@ -9,6 +9,14 @@ export class HookbanGrid
 {
   static readonly tag = "hookban-grid"
 
+  static readonly observedAttributes = [
+    "width",
+    "height",
+    "color",
+    "nx",
+    "ny",
+  ]
+
   private canvas = document.createElement("canvas")
 
   constructor(
@@ -42,12 +50,23 @@ export class HookbanGrid
     const ctx = this.canvas.getContext("2d")
     if (!ctx) return
 
-    const stepX = this.width / this.nx
+    const padding = 10
+
+    const stepX = (this.width - 2 * padding) / (this.nx - 1)
+    const stepY =
+      (this.height - 2 * padding) / (this.ny - 1)
 
     for (let x = 0; x <= this.width; x += stepX) {
       ctx.beginPath()
-      ctx.moveTo(10, 10)
-      ctx.lineTo(x, this.width)
+      ctx.moveTo(padding + x, padding)
+      ctx.lineTo(padding + x, this.height - padding)
+      ctx.stroke()
+    }
+
+    for (let y = 0; y <= this.height; y += stepY) {
+      ctx.beginPath()
+      ctx.moveTo(padding, padding + y)
+      ctx.lineTo(this.width - padding, padding + y)
       ctx.stroke()
     }
   }
