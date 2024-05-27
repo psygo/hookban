@@ -12,6 +12,7 @@ export class HookbanGrid
   static readonly observedAttributes = [
     "width",
     "height",
+    "padding",
     "color",
     "nx",
     "ny",
@@ -22,6 +23,7 @@ export class HookbanGrid
   constructor(
     public width = 100,
     public height = 100,
+    public padding = 10,
     public color = "#111",
     public nx = 19,
     public ny = 19
@@ -32,6 +34,7 @@ export class HookbanGrid
   connectedCallback() {
     this.setAttribute("width", this.width.toString())
     this.setAttribute("height", this.height.toString())
+    this.setAttribute("padding", this.padding.toString())
     if (this.color && this.color !== "")
       this.setAttribute("color", this.color)
     this.setAttribute("nx", this.nx.toString())
@@ -50,23 +53,28 @@ export class HookbanGrid
     const ctx = this.canvas.getContext("2d")
     if (!ctx) return
 
-    const padding = 10
-
-    const stepX = (this.width - 2 * padding) / (this.nx - 1)
+    const stepX =
+      (this.width - 2 * this.padding) / (this.nx - 1)
     const stepY =
-      (this.height - 2 * padding) / (this.ny - 1)
+      (this.height - 2 * this.padding) / (this.ny - 1)
 
     for (let x = 0; x <= this.width; x += stepX) {
       ctx.beginPath()
-      ctx.moveTo(padding + x, padding)
-      ctx.lineTo(padding + x, this.height - padding)
+      ctx.moveTo(this.padding + x, this.padding)
+      ctx.lineTo(
+        this.padding + x,
+        this.height - this.padding
+      )
       ctx.stroke()
     }
 
     for (let y = 0; y <= this.height; y += stepY) {
       ctx.beginPath()
-      ctx.moveTo(padding, padding + y)
-      ctx.lineTo(this.width - padding, padding + y)
+      ctx.moveTo(this.padding, this.padding + y)
+      ctx.lineTo(
+        this.width - this.padding,
+        this.padding + y
+      )
       ctx.stroke()
     }
   }
@@ -83,8 +91,17 @@ export class HookbanGrid
       case "height":
         this.height = parseFloat(newValue)
         break
+      case "padding":
+        this.padding = parseFloat(newValue)
+        break
       case "color":
         this.color = newValue
+        break
+      case "nx":
+        this.nx = parseInt(newValue)
+        break
+      case "ny":
+        this.ny = parseInt(newValue)
         break
       default:
     }
