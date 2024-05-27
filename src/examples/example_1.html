@@ -59,10 +59,9 @@
   <body>
     <div id="demo-container">
       <hookban-container>
+        <hookban-stones></hookban-stones>
         <hookban-grid></hookban-grid>
-        <hookban-background
-          oncolorchange="() => console.log('color changed')"
-        ></hookban-background>
+        <hookban-background></hookban-background>
       </hookban-container>
     </div>
 
@@ -76,11 +75,16 @@
         )
         const hookbanGrid =
           document.querySelector("hookban-grid")
+        const hookbanStones = document.querySelector(
+          "hookban-stones"
+        )
 
         hookbanBackground.setAttribute("height", newHeight)
         hookbanBackground.setAttribute("width", newWidth)
         hookbanGrid.setAttribute("height", newHeight)
         hookbanGrid.setAttribute("width", newWidth)
+        hookbanStones.setAttribute("height", newHeight)
+        hookbanStones.setAttribute("width", newWidth)
       })
 
       const hookbanContainer = document.querySelector("div")
@@ -127,6 +131,15 @@
         <div class="form-field">
           <label for="grid-ny"># of Y Intersections</label>
           <input id="grid-ny" type="number" value="19" />
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Game Controls</legend>
+
+        <div class="game-controls">
+          <button type="button">&lt;</button>
+          <button type="button">&gt;</button>
         </div>
       </fieldset>
     </form>
@@ -233,6 +246,35 @@
           document.querySelector("hookban-grid")
         hookbanGrid.setAttribute("ny", e.target.value)
       })
+    </script>
+
+    <script id="stone-controls">
+      setTimeout(() => {
+        const stones = [
+          {
+            x: 100,
+            y: 100,
+            color: "black",
+          },
+          {
+            x: 200,
+            y: 200,
+            color: "white",
+          },
+        ]
+
+        const hookbanStones = document.querySelector(
+          "hookban-stones"
+        )
+
+        hookbanStones.dispatchEvent(
+          new CustomEvent("hookban-stones-change", {
+            detail: {
+              stones,
+            },
+          })
+        )
+      }, 100)
     </script>
   </body>
 </html>

@@ -30,7 +30,7 @@ export class HookbanBackground
     public height = 100,
     public color = "#cfb844",
     public img = "",
-    public onColorChange: OnColorChange
+    public onColorChange: OnColorChange = () => {}
   ) {
     super()
   }

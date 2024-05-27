@@ -14,4 +14,4 @@ customElements.define(
   HookbanBackground
 )
 customElements.define(HookbanGrid.tag, HookbanGrid)
-customElements.define(HookbanStones.tag, HookbanGrid)
+customElements.define(HookbanStones.tag, HookbanStones)

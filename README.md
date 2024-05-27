@@ -17,12 +17,15 @@ We can achieve more fine grained control, and simpler components by deconstructi
 
 ```html
 <hookban-container>
+  <hookban-stones></hookban-stones>
   <hookban-grid></hookban-grid>
-  <hookban-background></hookban-background>
+  <hookban-background
+    oncolorchange="() => console.log('color changed')"
+  ></hookban-background>
 </hookban-container>
 ```
 
-By decomposing things in this way, anyone can easily create other custom layers as well.
+By decomposing things in this way, anyone can easily create other custom layers as well. Ideally, each layer should be simple enough, that a developer could simply copy paste the original code and alter it in a couple of hours, I believe.
 
 Then, it's just a matter of setting properties on each HTML component:
 
