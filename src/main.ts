@@ -2,6 +2,7 @@ import {
   HookbanBackground,
   HookbanContainer,
   HookbanGrid,
+  HookbanStones,
 } from "./components/exports"
 
 customElements.define(
@@ -13,3 +14,4 @@ customElements.define(
   HookbanBackground
 )
 customElements.define(HookbanGrid.tag, HookbanGrid)
+customElements.define(HookbanStones.tag, HookbanGrid)

@@ -2,6 +2,6 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
   server: {
-    open: "/src/examples/index.html",
+    open: "/src/examples/example_1.html",
   },
 })

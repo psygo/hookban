@@ -1,4 +1,4 @@
 # Tasks
 
-1. [ ] Boilerplate
-1. [ ] Goban container
+1. [ ] Draw stones
+2. [ ] Draw stones from preset game
