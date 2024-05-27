@@ -49,8 +49,8 @@
         /* height: fit-content;
         width: fit-content; */
         margin-top: 9px;
-        height: 300px;
-        width: 300px;
+        height: 400px;
+        width: 400px;
         padding: 10px;
         border: 1px solid black;
       }
@@ -60,7 +60,9 @@
     <div id="demo-container">
       <hookban-container>
         <hookban-grid></hookban-grid>
-        <hookban-background></hookban-background>
+        <hookban-background
+          oncolorchange="() => console.log('color changed')"
+        ></hookban-background>
       </hookban-container>
     </div>
 
@@ -87,32 +89,35 @@
 
     <form id="goban-customization">
       <fieldset>
-        <legend>Goban Background Customization</legend>
+        <legend>Background Customization</legend>
 
         <div class="form-field">
-          <label for="background-color"
-            >Background Color</label
-          >
+          <label for="background-color">Color</label>
           <input id="background-color" type="color" />
         </div>
 
         <div class="form-field">
-          <label for="background-img"
-            >Background Image</label
-          >
+          <label for="background-img">Image</label>
           <input id="background-img" type="file" />
         </div>
 
         <div class="form-field">
-          <label for="background-img-url"
-            >Background Image URL</label
-          >
+          <label for="background-img-url">Image URL</label>
           <input id="background-img-url" type="url" />
+        </div>
+
+        <div class="form-field">
+          <button
+            id="change-background-with-evt"
+            type="button"
+          >
+            Change Background with Event
+          </button>
         </div>
       </fieldset>
 
       <fieldset>
-        <legend>Goban Grid Customization</legend>
+        <legend>Grid Customization</legend>
 
         <div class="form-field">
           <label for="grid-nx"># of X Intersections</label>
@@ -183,6 +188,30 @@
           hookbanBackground.setAttribute(
             "img",
             e.target.value
+          )
+        }
+      )
+    </script>
+
+    <script id="background-change-with-evt">
+      const backgroundChangeButtonWithEvt =
+        document.querySelector(
+          "#change-background-with-evt"
+        )
+
+      backgroundChangeButtonWithEvt.addEventListener(
+        "click",
+        () => {
+          const hookbanBackground = document.querySelector(
+            "hookban-background"
+          )
+
+          hookbanBackground.dispatchEvent(
+            new CustomEvent("hookban-background-change", {
+              detail: {
+                color: "green",
+              },
+            })
           )
         }
       )
