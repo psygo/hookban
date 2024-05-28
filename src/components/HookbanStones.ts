@@ -11,6 +11,7 @@ export class HookbanStones
   static readonly tag = "hookban-stones"
 
   private canvas = document.createElement("canvas")
+  private currentColor = "black"
 
   static readonly observedAttributes = ["width", "height"]
 
@@ -32,6 +33,18 @@ export class HookbanStones
     this.addEventListener("hookban-stones-change", (e) =>
       this.onEvtChange(e as CustomEvent)
     )
+
+    this.onclick = this.onClick
+  }
+
+  onClick(e: MouseEvent) {
+    this.drawStone(
+      e.offsetX - this.stoneRadius / 2,
+      e.offsetY - this.stoneRadius / 2,
+      this.currentColor
+    )
+    this.currentColor =
+      this.currentColor === "black" ? "white" : "black"
   }
 
   onEvtChange(e: CustomEvent) {
@@ -39,23 +52,29 @@ export class HookbanStones
 
     if (!stones) return
 
+    for (const move of stones) {
+      this.drawStone(move.x, move.y, move.color)
+    }
+  }
+
+  private get stoneRadius() {
+    return this.width / 19 / 2
+  }
+
+  private drawStone(x: number, y: number, color: string) {
     const ctx = this.canvas.getContext("2d")
     if (!ctx) return
 
-    const stoneRadius = this.width / 19 / 2
-
-    for (const move of stones) {
-      ctx.beginPath()
-      ctx.arc(
-        move.x - stoneRadius / 2,
-        move.y - stoneRadius / 2,
-        stoneRadius,
-        0,
-        2 * Math.PI
-      )
-      ctx.fillStyle = move.color
-      ctx.fill()
-    }
+    ctx.beginPath()
+    ctx.arc(
+      x - this.stoneRadius / 2,
+      y - this.stoneRadius / 2,
+      this.stoneRadius,
+      0,
+      2 * Math.PI
+    )
+    ctx.fillStyle = color
+    ctx.fill()
   }
 
   attributeChangedCallback(
