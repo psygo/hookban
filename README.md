@@ -11,6 +11,8 @@ The 2 key features of this implementation would be:
 
 ## How It Works
 
+> Check out the [`example_1.html`](./src/examples/example_1.html) for more info.
+
 ### A Goban in Layers
 
 We can achieve more fine grained control, and simpler components by deconstructing goban features into layers:
